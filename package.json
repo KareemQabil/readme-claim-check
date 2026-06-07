@@ -1,0 +1,20 @@
+{
+  "name": "readme-claim-check",
+  "version": "0.1.0",
+  "description": "CLI for flagging risky README claims that should be supported before publication.",
+  "type": "module",
+  "bin": {
+    "readme-claim-check": "./bin/readme-claim-check.js"
+  },
+  "scripts": {
+    "test": "node --test"
+  },
+  "keywords": [
+    "readme",
+    "lint",
+    "docs",
+    "claims",
+    "github"
+  ],
+  "license": "MIT"
+}
