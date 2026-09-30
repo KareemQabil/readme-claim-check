@@ -1,0 +1,28 @@
+name: temporary vrfkit linux build
+on:
+  push:
+    branches:
+      - tmp-vrfkit-linux-build-20260930
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch vrfkit v0.2.4
+        run: |
+          curl -L --fail -o /tmp/vrfkit.tar.gz https://codeload.github.com/yakisoba0728/vrfkit/tar.gz/refs/tags/v0.2.4
+          mkdir -p /tmp/vrfkit
+          tar -xzf /tmp/vrfkit.tar.gz -C /tmp/vrfkit --strip-components=1
+      - name: Build vrfkit
+        run: |
+          cd /tmp/vrfkit
+          rustc --version
+          cargo build --release -p vrfkit --locked
+          strip target/release/vrfkit || true
+          ./target/release/vrfkit --help
+      - name: Upload binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: vrfkit-linux-x64-v0.2.4
+          path: /tmp/vrfkit/target/release/vrfkit
+          if-no-files-found: error
+          retention-days: 1
